@@ -184,17 +184,17 @@ export default function Home() {
       <div className="relative flex flex-col lg:flex-row">
 
       {/* Sticky Left Section - stops at end of container */}
-      <div className="lg:w-1/2 lg:sticky lg:top-0 lg:h-screen">
+      <div className="lg:w-1/2 lg:sticky lg:top-0 lg:h-screen bg-gray-50">
         <div className="h-screen flex items-center justify-center p-8 lg:p-16">
           <div className="max-w-xl">
-            <div className={`inline-block px-4 py-2 rounded-full border-2 ${currentCard.accentColor} border-current mb-6 text-sm`}>
+            <div className={`inline-block px-4 py-2 rounded-full border-2 ${currentCard.accentColor} border-current mb-6 text-sm transition-all duration-700`}>
               Pourquoi nous
             </div>
 
             <h1 className="text-5xl lg:text-6xl font-bold mb-4 text-gray-900">
               Pourquoi choisir
             </h1>
-            <h1 className={`text-5xl lg:text-6xl font-bold mb-6 ${currentCard.accentColor}`}>
+            <h1 className={`text-5xl lg:text-6xl font-bold mb-6 ${currentCard.accentColor} transition-all duration-700`}>
               ARCAD<span className="text-gray-900">?</span>
             </h1>
 
@@ -202,7 +202,7 @@ export default function Home() {
               ARCAD Collective est une coopérative digitale marocaine qui mise sur la collaboration, la transparence et l'expertise locale pour offrir des solutions sur mesure, durables et efficaces.
             </p>
 
-            <button className={`${currentCard.buttonColor} text-white px-8 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity`}>
+            <button className={`${currentCard.buttonColor} text-white px-8 py-3 rounded-lg font-medium hover:opacity-90 transition-all duration-700`}>
               About Us
             </button>
           </div>
