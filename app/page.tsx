@@ -48,6 +48,7 @@ const cards = [
 export default function Home() {
   const [activeCard, setActiveCard] = useState(0);
   const [showFixed, setShowFixed] = useState(false);
+  const [cardVisibility, setCardVisibility] = useState<number[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,6 +70,20 @@ export default function Home() {
       );
 
       setActiveCard(cardIndex);
+
+      // Calculate card visibility based on scroll position
+      const visibleCards: number[] = [];
+      cards.forEach((_, index) => {
+        const cardElement = document.getElementById(`card-${index}`);
+        if (cardElement) {
+          const rect = cardElement.getBoundingClientRect();
+          const isVisible = rect.top < windowHeight * 0.75 && rect.bottom > windowHeight * 0.25;
+          if (isVisible) {
+            visibleCards.push(index);
+          }
+        }
+      });
+      setCardVisibility(visibleCards);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -170,7 +185,7 @@ export default function Home() {
 
       {/* Sticky Left Section - stops at end of container */}
       <div className="lg:w-1/2 lg:sticky lg:top-0 lg:h-screen">
-        <div className={`h-screen flex items-center justify-center p-8 lg:p-16 transition-opacity duration-300 ${showFixed ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="h-screen flex items-center justify-center p-8 lg:p-16">
           <div className="max-w-xl">
             <div className={`inline-block px-4 py-2 rounded-full border-2 ${currentCard.accentColor} border-current mb-6 text-sm`}>
               Pourquoi nous
@@ -196,24 +211,32 @@ export default function Home() {
 
       {/* Scrollable Right Section - Cards */}
       <div className="lg:w-1/2">
-        {cards.map((card, index) => (
-          <div
-            key={card.id}
-            className={`min-h-screen flex items-center justify-center p-8 lg:p-16 ${card.bgColor} transition-all duration-500`}
-          >
-            <div className="max-w-md">
-              <div className={`text-6xl mb-6 ${card.iconColor}`}>
-                {card.icon}
+        {cards.map((card, index) => {
+          const isVisible = cardVisibility.includes(index);
+          return (
+            <div
+              key={card.id}
+              id={`card-${index}`}
+              className={`min-h-screen flex items-center justify-center p-8 lg:p-16 ${card.bgColor} transition-all duration-700`}
+            >
+              <div className={`max-w-md transition-all duration-700 transform ${
+                isVisible
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-10'
+              }`}>
+                <div className={`text-6xl mb-6 ${card.iconColor}`}>
+                  {card.icon}
+                </div>
+                <h2 className={`text-3xl font-bold mb-4 ${card.iconColor}`}>
+                  {card.title}
+                </h2>
+                <p className="text-gray-500 text-lg leading-relaxed">
+                  {card.description}
+                </p>
               </div>
-              <h2 className={`text-3xl font-bold mb-4 ${card.iconColor}`}>
-                {card.title}
-              </h2>
-              <p className="text-gray-500 text-lg leading-relaxed">
-                {card.description}
-              </p>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
       </div>
 
