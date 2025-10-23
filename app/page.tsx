@@ -184,7 +184,7 @@ export default function Home() {
       <div className="relative flex flex-col lg:flex-row">
 
       {/* Sticky Left Section - stops at end of container */}
-      <div className="lg:w-1/2 lg:sticky lg:top-0 lg:h-screen bg-gray-50">
+      <div className="lg:w-1/2 lg:sticky lg:top-0 lg:h-screen">
         <div className="h-screen flex items-center justify-center p-8 lg:p-16">
           <div className="max-w-xl">
             <div className={`inline-block px-4 py-2 rounded-full border-2 ${currentCard.accentColor} border-current mb-6 text-sm transition-all duration-700`}>
